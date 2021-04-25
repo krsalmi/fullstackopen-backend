@@ -1,0 +1,28 @@
+{
+  "name": "fullstack-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krsalmi/fullstackopen-backend.git"
+  },
+  "author": "krsalmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krsalmi/fullstackopen-backend/issues"
+  },
+  "homepage": "https://github.com/krsalmi/fullstackopen-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
