@@ -62,4 +62,4 @@ if (process.argv.length === 3) {
 	})
 }
 
-module.exports = mongoose.model('Person', noteSchema)
+module.exports = mongoose.model('Person', personSchema)
