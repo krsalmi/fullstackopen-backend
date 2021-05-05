@@ -16,11 +16,11 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-		if (error.name.kind === 'unique') {
+		if (error.errors['name']) {
 			return response.status(400).send({ error: 'name must be unique' })
-		} else if (error.name.path === 'name' && error.name.kind === 'minlength') {
-				return response.status(400).send({ error: 'name must be at least 3 characters long' })
-		} else if (error.number.path === 'number' && error.number.kind === 'minlength') {
+		// } else if (error.name.path === 'name' && error.name.kind === 'minlength') {
+		// 		return response.status(400).send({ error: 'name must be at least 3 characters long' })
+		} else if (error.errors['number']) {
 			return response.status(400).send({ error: 'number must be at least 8 numbers long' })
 		}
 	}
