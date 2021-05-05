@@ -50,9 +50,13 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/api/info', (request, response) => {
-	response.send(`
-		<p>Phonebook has info for ${persons.length} people</p>
+	Person.find().count(function(err, count){
+    console.log("Number of docs: ", count )
+		console.log("error: ", error)
+		response.send(`
+		<p>Phonebook has info for ${count} people</p>
 		<p>${new Date()}</p>`)
+	})
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
