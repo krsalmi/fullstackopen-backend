@@ -102,9 +102,10 @@ app.post('/api/persons', (request, response, next) => {
     number: personNumber,
   })
 	.then(savedPerson => savedPerson.toJSON())
-		.then(savedAndFormattedPerson =>
-			response.json(savedAndFormattedPerson))
-		.catch(error => next(error))
+	.then(savedAndFormattedPerson => {
+			response.json(savedAndFormattedPerson)
+	})
+	.catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
