@@ -50,7 +50,7 @@ app.get('/api/info', (request, response) => {
 app.get('/api/persons/:id', (request, response) => {
 	Person.findById(request.params.id).then(person => {
 		if (!person) {
-			console.log("No such person")
+			response.send("<p>No such person</p>")
 			response.status(404).end()
 		} else {
     	response.json(person)
