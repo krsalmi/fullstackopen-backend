@@ -100,7 +100,7 @@ app.post('/api/persons', (request, response) => {
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-	const body = response.params.body
+	const body = request.body
 
 	const human = {
 		name: body.name,
