@@ -48,14 +48,14 @@ app.get('/api/info', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
-	const id = Number(request.params.id)
-	const person = persons.find(p => p.id === id)
-
-	if (person) {
-		response.json(person)
-	} else {
-		response.status(404).end()
-	}
+	Person.findById.then(person => {
+		if (!person) {
+			console.log("No such person")
+			response.status(404).end()
+		} else {
+    	response.json(person)
+		}
+  })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
@@ -94,14 +94,10 @@ app.post('/api/persons', (request, response) => {
 	// 	})
 	// }
 
-	// let newId = generateId()
-	// while (persons.find(p => p.id === newId))
-	// 	newId = generateId()
 
   const newPerson = new Person({
     name: personName,
     number: personNumber,
-    // id: newId,
   })
 	newPerson.save().then(savedPerson => {
 		response.json(savedPerson)
