@@ -48,7 +48,7 @@ app.get('/api/info', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
-	Person.findById.then(person => {
+	Person.findById(request.params.id).then(person => {
 		if (!person) {
 			console.log("No such person")
 			response.status(404).end()
