@@ -17,7 +17,7 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
 		console.log("error")
-		return response.status(400).send({ error: 'name must be unique'})
+		return response.status(400).send({ error: 'name must be unique' })
 	}
 
   next(error)
@@ -82,7 +82,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 		.catch(error => next(error))
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 	const personName = body.name
 	const personNumber = body.number
@@ -101,9 +101,10 @@ app.post('/api/persons', (request, response) => {
     name: personName,
     number: personNumber,
   })
-	newPerson.save().then(savedPerson => {
-		response.json(savedPerson)
-	})
+	.then(savedPerson => savedPerson.toJSON())
+		.then(savedAndFormattedPerson =>
+			response.json(savedAndFormattedPerson))
+		.catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
