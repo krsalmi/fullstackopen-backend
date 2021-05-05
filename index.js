@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config()
 const morgan = require('morgan')
 const Person = require('./models/person')
+const person = require('./models/person')
 
 
 app.use(express.static('build'))
@@ -68,10 +69,10 @@ app.delete('/api/persons/:id', (request, response) => {
 	})
 })
 
-const generateId = () => {
-	var newId = Math.floor((Math.random() * 100) + 1);
-	return (newId)
-}
+// const generateId = () => {
+// 	var newId = Math.floor((Math.random() * 100) + 1);
+// 	return (newId)
+// }
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
@@ -86,25 +87,25 @@ app.post('/api/persons', (request, response) => {
 		return response.status(400).json({
 			error: 'number missing'
 		})
-	} else if (persons.find(p => p.name === personName)) {
-		return response.status(400).json({
-			error: 'name must be unique'
-		})
 	}
+	// } else if (persons.find(p => p.name === personName)) {
+	// 	return response.status(400).json({
+	// 		error: 'name must be unique'
+	// 	})
+	// }
 
-	let newId = generateId()
-	while (persons.find(p => p.id === newId))
-		newId = generateId()
+	// let newId = generateId()
+	// while (persons.find(p => p.id === newId))
+	// 	newId = generateId()
 
-  const newPerson = {
+  const newPerson = new Person({
     name: personName,
     number: personNumber,
-    id: newId,
-  }
-
-  persons = persons.concat(newPerson)
-
-  response.json(newPerson)
+    // id: newId,
+  })
+	person.save().then(newPerson => {
+		response.json(newPerson)
+	})
 })
 
 const unknownEndpoint = (request, response) => {
