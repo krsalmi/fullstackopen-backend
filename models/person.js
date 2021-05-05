@@ -26,6 +26,8 @@ const personSchema = new mongoose.Schema({
 	},
 })
 
+Person.plugin(uniqueValidator)
+
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
@@ -35,7 +37,5 @@ personSchema.set('toJSON', {
 })
 
 const Person = mongoose.model('Person', personSchema)
-
-// Person.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Person', personSchema)
