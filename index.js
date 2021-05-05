@@ -52,7 +52,7 @@ app.get('/api/persons', (request, response) => {
 app.get('/api/info', (request, response) => {
 	Person.find().count(function(err, count){
     console.log("Number of docs: ", count )
-		console.log("error: ", error)
+		console.log("error: ", err)
 		response.send(`
 		<p>Phonebook has info for ${count} people</p>
 		<p>${new Date()}</p>`)
