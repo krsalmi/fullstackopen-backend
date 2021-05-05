@@ -103,8 +103,8 @@ app.post('/api/persons', (request, response) => {
     number: personNumber,
     // id: newId,
   })
-	person.save().then(newPerson => {
-		response.json(newPerson)
+	newPerson.save().then(savedPerson => {
+		response.json(savedPerson)
 	})
 })
 
