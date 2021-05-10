@@ -23,11 +23,8 @@ const errorHandler = (error, request, response, next) => {
 			if (error.errors[field].kind === 'unique') {
 				return response.status(400).send({ error: 'name must be unique' })
 			} else if (error.errors[field].kind === 'minlength') {
-					if (field === 'name') {
-						return response.status(400).send({ error: 'name must be a minimum of 3 characters long'})
-					} else {
-						return response.status(400).send({ error: 'phonenumber must be a minimum of 8 numbers long'})
-					}
+				return response.status(400).send({ error: 'name must be a minimum of 3 characters long. \
+				phonenumber must be a minimum of 8 numbers long'})
 			}
 		}
 	}
