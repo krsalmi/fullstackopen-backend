@@ -106,7 +106,8 @@ app.post('/api/persons', (request, response, next) => {
     name: personName,
     number: personNumber,
   })
-	newPerson.save()
+	newPerson.save(function (err) {
+    console.log(err)})
 		.then(savedPerson => savedPerson.toJSON())
 		.then(savedAndFormattedPerson => {
 				response.json(savedAndFormattedPerson)
