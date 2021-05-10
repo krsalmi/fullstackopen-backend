@@ -18,7 +18,7 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'ValidationError') {
 		if (error.kind === 'unique' || error.kind === 'minlength') {
 			return response.status(400).send({ error: 'name must be unique and a minimum of 3 characters long. \
-			password must be a minimum of 8 characters long' })
+			phonenumber must be a minimum of 8 numbers long' })
 		}
 	}
 
