@@ -114,7 +114,7 @@ app.post('/api/persons', (request, response, next) => {
 		})
 		.catch((err) => {
 			console.log(err)
-			return "problem"
+			next(err)
 		})
 })
 
