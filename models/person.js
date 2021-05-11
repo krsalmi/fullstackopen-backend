@@ -15,15 +15,15 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 
 const personSchema = new mongoose.Schema({
   name: { 
-		type: String,
-		required: true,
-		minlength: 3,
-		unique: true 
-	},
+    type: String,
+    required: true,
+    minlength: 3,
+    unique: true 
+  },
   number: {
-		type: String,
-		minlength: 8
-	},
+    type: String,
+    minlength: 8
+  },
 })
 
 personSchema.plugin(uniqueValidator)
@@ -35,7 +35,5 @@ personSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
-
-// const Person = mongoose.model('Person', personSchema)
 
 module.exports = mongoose.model('Person', personSchema)
