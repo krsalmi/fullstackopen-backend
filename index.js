@@ -15,14 +15,14 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).send({ error: 
-      'name must be unique and minimum of 3 characters long. number must be at least 8 numbers long'})
+    return response.status(400).send({ error:
+      'name must be unique and minimum of 3 characters long. number must be at least 8 numbers long' } )
   }
 
   next(error)
 }
 
-morgan.token('content', (req, res) => JSON.stringify(req.body))
+morgan.token('content', (req) => JSON.stringify(req.body))
 
 app.use(morgan(function (tokens, req, res) {
   if (tokens.method(req, res) === 'POST') {
@@ -76,7 +76,11 @@ app.get('/api/persons/:id', (request, response, next) => {
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
     .then(result => {
-      response.status(204).end()
+      if (result) {
+        response.status(204).end()
+      } else {
+        response.status(404).end()
+      }
     })
     .catch(error => next(error))
 })
@@ -87,8 +91,8 @@ app.post('/api/persons', (request, response, next) => {
   const personNumber = body.number
 
   if (!personName) {
-    return response.status(400).json({ 
-      error: 'name missing' 
+    return response.status(400).json( {
+      error: 'name missing'
     })
   } else if (!personNumber) {
     return response.status(400).json({
@@ -119,7 +123,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     name: body.name,
     number: body.number,
   }
-  Person.findByIdAndUpdate(request.params.id, human, {new: true})
+  Person.findByIdAndUpdate(request.params.id, human, { new: true })
     .then(updatedHuman => {
       response.json(updatedHuman)
     })
